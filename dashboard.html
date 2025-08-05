@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expensy - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Navigation Bar -->
+        <nav class="dashboard-nav">
+            <div class="nav-brand">
+                <div class="logo-container">
+                    <svg class="logo" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Outer circle with gradient -->
+                        <circle cx="20" cy="20" r="18" fill="url(#logoGradient)" stroke="#ffffff" stroke-width="2"/>
+                        
+                        <!-- Dollar sign -->
+                        <path d="M20 8v4m0 16v4m-6-16c0-2.2 1.8-4 4-4h4c2.2 0 4 1.8 4 4s-1.8 4-4 4h-4c-2.2 0-4 1.8-4 4s1.8 4 4 4h4c2.2 0 4-1.8 4-4" 
+                              stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        
+                        <!-- Gradient definition -->
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#6366f1;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h1>Expensy</h1>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="#dashboard" class="nav-link active" data-section="dashboard">Dashboard</a>
+                <a href="#analytics" class="nav-link" data-section="analytics">Analytics</a>
+                <a href="#profile" class="nav-link" data-section="profile">Profile</a>
+                    <div class="mode-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    </div>
+                <button id="logoutBtn" class="nav-logout-btn">Logout</button>
+            </div>
+        </nav>
+
+        <header class="dashboard-header">
+            <div class="user-info">
+                <span id="userName">Welcome, User!</span>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <!-- Dashboard Section -->
+            <div id="dashboard-section" class="main-section active">
+                <!-- Budget Section -->
+                <section class="dashboard-section">
+                    <h2>Budget Management</h2>
+                    <div class="budget-card">
+                        <div class="budget-input">
+                            <div class="input-group">
+                                <input type="number" id="budgetAmount" placeholder="Enter budget amount" class="dashboard-input">
+                                <button id="setBudgetBtn" class="dashboard-btn">Set Budget</button>
+                            </div>
+                        </div>
+                        <div class="budget-display">
+                            <p>Monthly Budget: $<span id="currentBudget">0</span></p>
+                            <p>Remaining: $<span id="remainingBudget">0</span></p>
+                            <div class="budget-progress">
+                                <div id="budgetProgressBar" class="progress-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Income Section -->
+                <section class="dashboard-section">
+                    <h2>Income</h2>
+                    <div class="transaction-form">
+                        <div class="form-row">
+                            <input type="text" id="incomeDescription" placeholder="Income description" class="dashboard-input">
+                            <select id="incomeCategory" class="dashboard-input">
+                                <option value="">Select category</option>
+                                <option value="salary">Salary</option>
+                                <option value="freelance">Freelance</option>
+                                <option value="business">Business</option>
+                                <option value="investment">Investment</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <input type="number" id="incomeAmount" placeholder="Amount" class="dashboard-input">
+                            <button id="addIncomeBtn" class="dashboard-btn">Add Income</button>
+                        </div>
+                    </div>
+                    <div class="transactions-list">
+                        <h3>Income Transactions</h3>
+                        <div id="incomeList" class="transaction-items"></div>
+                        <p class="total">Total Income: $<span id="totalIncome">0</span></p>
+                    </div>
+                </section>
+
+                <!-- Expense Section -->
+                <section class="dashboard-section">
+                    <h2>Expenses</h2>
+                    <div class="transaction-form">
+                        <div class="form-row">
+                            <input type="text" id="expenseDescription" placeholder="Expense description" class="dashboard-input">
+                            <select id="expenseCategory" class="dashboard-input">
+                                <option value="">Select category</option>
+                                <option value="food">Food & Dining</option>
+                                <option value="transportation">Transportation</option>
+                                <option value="shopping">Shopping</option>
+                                <option value="entertainment">Entertainment</option>
+                                <option value="bills">Bills & Utilities</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="education">Education</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <input type="number" id="expenseAmount" placeholder="Amount" class="dashboard-input">
+                            <button id="addExpenseBtn" class="dashboard-btn expense-btn">Add Expense</button>
+                        </div>
+                    </div>
+                    <div class="transactions-list">
+                        <h3>Expense Transactions</h3>
+                        <div id="expenseList" class="transaction-items"></div>
+                        <p class="total">Total Expenses: $<span id="totalExpenses">0</span></p>
+                    </div>
+                </section>
+
+                <!-- Summary Section -->
+                <section class="dashboard-section">
+                    <h2>Financial Summary</h2>
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <h3>Net Balance</h3>
+                            <p class="balance" id="netBalance">$0</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3>This Month</h3>
+                            <h4>Income: $<span id="monthlyIncome">0</span></h4>
+                            <h4>Expenses: $<span id="monthlyExpenses">0</span></h4>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Analytics Section -->
+            <div id="analytics-section" class="main-section">
+                <section class="dashboard-section">
+                    <h2>Financial Analytics</h2>
+                    <div class="charts-container">
+                        <div class="chart-card">
+                            <h3>Income by Category</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="incomeChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Expenses by Category</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="expenseChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-card full-width">
+                        <h3>Income vs Expenses Overview</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="overviewChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Profile Section -->
+            <div id="profile-section" class="main-section">
+                <section class="dashboard-section">
+                    <h2>Profile Settings</h2>
+                    <div class="profile-container">
+                        <div class="profile-card">
+                            <div class="profile-avatar">
+                                <div class="avatar-circle" id="profileAvatar">
+                                    <span id="avatarInitials">U</span>
+                                </div>
+                                <button class="change-avatar-btn" id="changeAvatarBtn">Change Avatar</button>
+                            </div>
+                            <div class="profile-info">
+                                <h3>Personal Information</h3>
+                                <div class="profile-form">
+                                    <div class="form-group">
+                                        <label for="profileName">Full Name</label>
+                                        <input type="text" id="profileName" class="dashboard-input" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profileEmail">Email</label>
+                                        <input type="email" id="profileEmail" class="dashboard-input" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profileJoined">Member Since</label>
+                                        <input type="text" id="profileJoined" class="dashboard-input" readonly>
+                                    </div>
+                                    <button id="editProfileBtn" class="dashboard-btn">Edit Profile</button>
+                                    <button id="saveProfileBtn" class="dashboard-btn" style="display: none;">Save Changes</button>
+                                    <button id="cancelEditBtn" class="dashboard-btn logout-btn" style="display: none;">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-stats">
+                            <h3>Account Statistics</h3>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <span class="stat-number" id="totalTransactions">0</span>
+                                    <span class="stat-label">Total Transactions</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="avgMonthlyIncome">$0</span>
+                                    <span class="stat-label">Avg Monthly Income</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="avgMonthlyExpense">$0</span>
+                                    <span class="stat-label">Avg Monthly Expense</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="savingsRate">0%</span>
+                                    <span class="stat-label">Savings Rate</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expensy - Sign Up</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <section class="auth-section">
+
+    <div class="animated-bg" id="animatedBg"></div>
+
+    <div class="form-container">
+      <div class="form-content">
+        <h2>Sign Up</h2>
+        <form class="form" id="signupForm">
+
+          <!-- Full Name -->
+          <div class="input-box">
+            <input type="text" id="fullName" name="fullName" required />
+            <i>Full Name</i>
+          </div>
+
+          <!-- Email -->
+          <div class="input-box">
+            <input type="email" id="signupEmail" name="email" required />
+            <i>Email</i>
+          </div>
+
+          <!-- Password -->
+          <div class="input-box">
+            <input type="password" id="signupPassword" name="password" required />
+            <i>Password</i>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="input-box">
+            <input type="password" id="confirmPassword" name="confirmPassword" required />
+            <i>Confirm Password</i>
+          </div>
+
+          <!-- Phone Number -->
+          <div class="input-box">
+            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" />
+          </div>
+
+          <!-- Age -->
+          <div class="input-box">
+            <input type="number" id="age" name="age" placeholder="Age" />
+          </div>
+          <!-- Navigation Links -->
+          <div class="form-links">
+            <a href="index.html">Already have an account?</a>
+            <a href="index.html">Login</a>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="input-box">
+            <input type="submit" value="Sign Up" class="submit-btn" />
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </section>
+  <script src="script.js"></script>
+</body>
+</html>
